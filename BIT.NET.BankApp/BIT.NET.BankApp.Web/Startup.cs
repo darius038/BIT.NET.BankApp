@@ -1,3 +1,4 @@
+using AutoMapper;
 using BIT.NET.BankApp.Data.Context;
 using BIT.NET.BankApp.Domain.Entities;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +38,8 @@ namespace BIT.NET.BankApp.Web
             })
                 .AddEntityFrameworkStores<AppDbContext>();
 
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddControllersWithViews();
         }
 
@@ -57,6 +60,8 @@ namespace BIT.NET.BankApp.Web
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
