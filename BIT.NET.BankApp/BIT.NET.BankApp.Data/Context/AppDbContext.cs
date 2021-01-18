@@ -1,15 +1,13 @@
 ﻿using BIT.NET.BankApp.Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace BIT.NET.BankApp.Data.Context
 {
-    public class AppDbContext: DbContext
-
+    public class AppDbContext: IdentityDbContext<User>
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options)
+        public AppDbContext(DbContextOptions options)
            : base(options)
         {
 
@@ -17,6 +15,5 @@ namespace BIT.NET.BankApp.Data.Context
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Card> Cards { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
-
     }
 }

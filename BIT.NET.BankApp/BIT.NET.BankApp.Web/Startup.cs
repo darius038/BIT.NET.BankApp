@@ -1,15 +1,14 @@
 using BIT.NET.BankApp.Data.Context;
+using BIT.NET.BankApp.Domain.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace BIT.NET.BankApp.Web
 {
@@ -27,6 +26,16 @@ namespace BIT.NET.BankApp.Web
         {
             services.AddDbContext<AppDbContext>(opts =>
                 opts.UseSqlServer(Configuration.GetConnectionString("sqlConnection")));
+
+            services.AddIdentity<User, IdentityRole>(opt =>
+            {
+                opt.Password.RequiredLength = 6;
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.User.RequireUniqueEmail = false;
+            })
+                .AddEntityFrameworkStores<AppDbContext>();
 
             services.AddControllersWithViews();
         }

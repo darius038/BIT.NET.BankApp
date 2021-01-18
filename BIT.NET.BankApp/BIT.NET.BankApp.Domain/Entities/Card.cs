@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace BIT.NET.BankApp.Domain.Entities
 {
     public  class Card

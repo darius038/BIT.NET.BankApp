@@ -1,7 +1,7 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+
 
 namespace BIT.NET.BankApp.Domain.Entities
 {
@@ -11,7 +11,7 @@ namespace BIT.NET.BankApp.Domain.Entities
 
         [Column(TypeName = "money")]
         public decimal Balance { get; set; }
-        
+        public User User { get; set; }
         public ICollection<Card> Cards { get; set; }
         public ICollection<Transaction> Transactions { get; set; }
 
