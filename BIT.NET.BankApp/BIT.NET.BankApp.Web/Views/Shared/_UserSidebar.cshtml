@@ -1,0 +1,29 @@
+﻿@using BIT.NET.BankApp.Domain.Entities
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <nav style="max-width: 250px;" class="card col-3">
+        <div class="card-header">
+            <h3>@User.Identity.Name</h3>
+        </div>
+
+        <ul class="card-body list-unstyled">
+            <li class="active">
+                <a class="nav-link text-dark btn btn-light" asp-area="" asp-controller="User" asp-action="Index">Accounts</a>
+            </li>
+            <li>
+                <a class="nav-link text-dark btn btn-light" >Cards</a>
+            </li>
+            <li>
+                <a class="nav-link text-dark btn btn-light" >Wealth</a>
+            </li>
+            <li>
+                <a class="nav-link text-dark btn btn-light" >Profile</a>
+            </li>
+        </ul>
+    </nav>
+}
