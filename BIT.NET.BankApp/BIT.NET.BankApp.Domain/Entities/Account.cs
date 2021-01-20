@@ -8,6 +8,7 @@ namespace BIT.NET.BankApp.Domain.Entities
     public class Account
     {
         public int Id { get; set; }
+        public string IBAN { get; set; }
 
         [Column(TypeName = "money")]
         public decimal Balance { get; set; }

@@ -4,11 +4,15 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+
 @if (SignInManager.IsSignedIn(User))
 {
     <nav style="max-width: 250px;" class="card col-3">
         <div class="card-header">
-            <h3>@User.Identity.Name</h3>
+            <h5>Hello @user.FirstName!</h5>
         </div>
 
         <ul class="card-body list-unstyled">
@@ -16,13 +20,13 @@
                 <a class="nav-link text-dark btn btn-light" asp-area="" asp-controller="User" asp-action="Index">Accounts</a>
             </li>
             <li>
-                <a class="nav-link text-dark btn btn-light" >Cards</a>
+                <a class="nav-link text-dark btn btn-light">Cards</a>
             </li>
             <li>
-                <a class="nav-link text-dark btn btn-light" >Wealth</a>
+                <a class="nav-link text-dark btn btn-light">Wealth</a>
             </li>
             <li>
-                <a class="nav-link text-dark btn btn-light" >Profile</a>
+                <a class="nav-link text-dark btn btn-light">Profile</a>
             </li>
         </ul>
     </nav>
