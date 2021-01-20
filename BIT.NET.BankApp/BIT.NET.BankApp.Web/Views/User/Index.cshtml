@@ -1,13 +1,42 @@
-﻿
+﻿@model IEnumerable<Account>
+@{
+    ViewData["Title"] = "User Panel";
+}
+
+
 <div class="card col-8 float-right">
     <div class="card-header">
         <h4>Accounts</h4>
     </div>
-    <div class="card-body">
-        <h5>Account number</h5>
-        <p>last opperations</p>
-        <h5>Account number</h5>
-        <p>last opperations</p>
+    <div class="">
+        <table class="table mt-3">            
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IBAN)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Balance)
+                        </td>
+                        <td>EUR</td>
+                    </tr>
+
+                }
+                <tr>last transactions</tr>
+            </tbody>
+        </table>
+
+
+      
+       
+
+
+
+
+
+
     </div>
 </div>
 

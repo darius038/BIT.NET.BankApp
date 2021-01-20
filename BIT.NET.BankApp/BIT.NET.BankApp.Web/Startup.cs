@@ -1,5 +1,6 @@
 using AutoMapper;
 using BIT.NET.BankApp.Data.Context;
+using BIT.NET.BankApp.Data.Repositories;
 using BIT.NET.BankApp.Domain.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +28,8 @@ namespace BIT.NET.BankApp.Web
         {
             services.AddDbContext<AppDbContext>(opts =>
                 opts.UseSqlServer(Configuration.GetConnectionString("sqlConnection")));
+
+            services.AddTransient<IAccountRepository, AccountRepository>();
 
             services.AddIdentity<User, IdentityRole>(opt =>
             {

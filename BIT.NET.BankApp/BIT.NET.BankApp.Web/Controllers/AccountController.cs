@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BIT.NET.BankApp.Data.Repositories;
 using BIT.NET.BankApp.Domain.Entities;
 using BIT.NET.BankApp.Web.Models.AccountViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -12,11 +13,18 @@ namespace BIT.NET.BankApp.Web.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        public AccountController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager)
+        private IAccountRepository _accRepository;
+
+        public AccountController(
+            IMapper mapper, 
+            UserManager<User> userManager, 
+            SignInManager<User> signInManager, 
+            IAccountRepository repository)
         {
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
+            _accRepository = repository;
         }
 
 
@@ -36,7 +44,8 @@ namespace BIT.NET.BankApp.Web.Controllers
             }
 
             var user = _mapper.Map<User>(registrationModel);
-           var result = await _userManager.CreateAsync(user, registrationModel.Password);
+            var result = await _userManager.CreateAsync(user, registrationModel.Password);
+
 
             if (!result.Succeeded)
             {
@@ -48,7 +57,8 @@ namespace BIT.NET.BankApp.Web.Controllers
             }
 
             await _userManager.AddToRoleAsync(user, "Customer");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            _accRepository.CreateAccount(user);
+            return RedirectToAction(nameof(AccountController.Login), "Account");
         }
 
         [HttpGet]
@@ -65,7 +75,9 @@ namespace BIT.NET.BankApp.Web.Controllers
             {
                 return View(loginModel);
             }
+
             var result = await _signInManager.PasswordSignInAsync(loginModel.Email, loginModel.Password, false, false);
+
             if (result.Succeeded)
             {
                 return RedirectToLocal(returnUrl);
@@ -84,7 +96,7 @@ namespace BIT.NET.BankApp.Web.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "User");
             }
         }
 
